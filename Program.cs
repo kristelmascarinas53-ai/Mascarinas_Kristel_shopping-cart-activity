@@ -74,4 +74,25 @@ class Program
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+       // ✅ SET GLOBAL STYLE
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.BackgroundColor = ConsoleColor.White;
+        Console.Clear(); // apply background
+
+        Product[] products = new Product[]
+        {
+            new Product { Id = 1, Name = "Laptop", Price = 1500, RemainingStock = 5 },
+            new Product { Id = 2, Name = "Mouse", Price = 500, RemainingStock = 10 },
+            new Product { Id = 3, Name = "Keyboard", Price = 1500, RemainingStock = 7 },
+            new Product { Id = 4, Name = "Lapis", Price = 200, RemainingStock = 23 },
+            new Product { Id = 5, Name = "Tissue", Price = 10, RemainingStock = 34 }
+        };
+
+        CartItem[] cart = new CartItem[10];
+        int cartCount = 0;
+
+        bool continueShopping = true;
+
+        while (continueShopping)
+        {
 
