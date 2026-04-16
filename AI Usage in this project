@@ -4,3 +4,13 @@ I used different types of AI such as ChatGPT, Gemini AI, and Claude AI as a coll
 Why AI was used?
 
 I used AI to help solve bugs and logic errors that were difficult for me to fix on my own. For example, I had issues where my loop would not stop after reaching the maximum number of items in the cart, and I also struggled with updating stock correctly after each purchase. AI also helped me understand how to properly structure my program so that each part (menu, cart, stock, and receipt) works together smoothly.
+These are the prompts/questions I asked:
+
+* How do I update stock after a product is added to the cart in C#?
+* Why does my loop not stop after reaching the maximum number of items in the cart?
+* Can you help me combine my product, cart, and checkout code properly?
+* Where should I place the receipt generation in my program flow?
+* How do I check if a product is out of stock before adding it to the cart?
+* Can you explain my code and tell me why it keeps repeating?
+* How do I prevent duplicate items in the cart and just update the quantity instead?
+* Can you help me improve my program structure without rewriting everything?
