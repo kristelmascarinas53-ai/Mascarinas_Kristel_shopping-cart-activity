@@ -186,3 +186,32 @@ PrintCentered("============================================== STORE MENU =======
 
         double grandTotal = 0;
 
+PrintCentered("============================================== RECEIPT ==============================================");
+        for (int i = 0; i < cartCount; i++)
+        {
+            PrintCentered($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
+            grandTotal += cart[i].Subtotal;
+        }
+
+        double discount = 0;
+        if (grandTotal >= 5000)
+        {
+            discount = grandTotal * 0.10;
+        }
+
+        double finalTotal = grandTotal - discount;
+
+        PrintCentered($"Grand Total: ₱{grandTotal}");
+        PrintCentered($"Discount: ₱{discount}");
+        PrintCentered($"Final Total: ₱{finalTotal}");
+
+        PrintCentered("============================================== UPDATED STOCK =========================================== ");
+        foreach (var product in products)
+        {
+            PrintCentered($"{product.Name}: {product.RemainingStock}");
+        }
+
+        PrintCentered("Thank you for shopping!");
+    }
+    
+}
