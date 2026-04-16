@@ -1,3 +1,6 @@
 AI Usage In This Project
 
 I used different types of AI such as ChatGPT, Gemini AI, and Claude AI as a collaborative coding partner. These AI tools helped me in building, organizing, and improving my shopping cart system project. They also assisted me in understanding parts of the code that were confusing, especially in handling loops, stock validation, and receipt generation. Furthermore, AI was used to help ensure that my program can properly handle user input errors and prevent logical issues in the flow of the system.
+Why AI was used?
+
+I used AI to help solve bugs and logic errors that were difficult for me to fix on my own. For example, I had issues where my loop would not stop after reaching the maximum number of items in the cart, and I also struggled with updating stock correctly after each purchase. AI also helped me understand how to properly structure my program so that each part (menu, cart, stock, and receipt) works together smoothly.
