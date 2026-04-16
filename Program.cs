@@ -95,4 +95,94 @@ class Program
 
         while (continueShopping)
         {
+PrintCentered("============================================== STORE MENU ==============================================");
+
+            foreach (var product in products)
+            {
+                product.DisplayProduct();
+            }
+
+            Console.Write("\nEnter product number: ");
+            if (!int.TryParse(Console.ReadLine(), out int productChoice))
+            {
+                PrintCentered("Invalid input. Please enter a number.");
+                continue;
+            }
+
+            if (productChoice < 1 || productChoice > products.Length)
+            {
+                PrintCentered("Invalid product number.");
+                continue;
+            }
+
+            Product selectedProduct = products[productChoice - 1];
+
+            if (selectedProduct.RemainingStock == 0)
+            {
+                PrintCentered("Product is out of stock.");
+                continue;
+            }
+
+            Console.Write("Enter quantity: ");
+            if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+            {
+                PrintCentered("Invalid quantity.");
+                continue;
+            }
+
+            if (!selectedProduct.HasEnoughStock(quantity))
+            {
+                PrintCentered("Not enough stock available.");
+                continue;
+            }
+
+            bool found = false;
+            for (int i = 0; i < cartCount; i++)
+            {
+                if (cart[i].Product.Id == selectedProduct.Id)
+                {
+                    cart[i].Quantity += quantity;
+                    cart[i].Subtotal = cart[i].Product.GetItemTotal(cart[i].Quantity);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                if (cartCount >= cart.Length)
+                {
+                    PrintCentered("Cart is full.");
+                    continue;
+                }
+
+                cart[cartCount] = new CartItem
+                {
+                    Product = selectedProduct,
+                    Quantity = quantity,
+                    Subtotal = selectedProduct.GetItemTotal(quantity)
+                };
+                cartCount++;
+            }
+
+            selectedProduct.DeductStock(quantity);
+
+            PrintCentered("Item added to cart!");
+
+            if (AreAllProductsOutOfStock(products))
+            {
+                PrintCentered("All products are out of stock. Proceeding to receipt...");
+                break;
+            }
+
+            Console.Write("Do you want to add more items? (Y/N): ");
+            string choice = Console.ReadLine().Trim().ToUpper();
+
+            if (choice != "Y")
+            {
+                continueShopping = false;
+            }
+        }
+
+        double grandTotal = 0;
 
