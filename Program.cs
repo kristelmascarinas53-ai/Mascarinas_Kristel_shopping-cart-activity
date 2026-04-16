@@ -42,4 +42,36 @@ class CartItem
     public int Quantity;
     public double Subtotal;
 }
+class Program
+{
+    // ✅ Centered + spaced printing
+    static void PrintCentered(string text)
+    {
+        int screenWidth = Console.WindowWidth;
+        int textLength = text.Length;
+
+        int spaces = (screenWidth - textLength) / 2;
+        if (spaces < 0) spaces = 0;
+
+        Console.WriteLine(); // space above
+        Console.WriteLine(new string(' ', spaces) + text);
+        Console.WriteLine(); // space below
+    }
+
+    static bool AreAllProductsOutOfStock(Product[] products)
+    {
+        foreach (var product in products)
+        {
+            if (product.RemainingStock > 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static void Main()
+    {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+
 
