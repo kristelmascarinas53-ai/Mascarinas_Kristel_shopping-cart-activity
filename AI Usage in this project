@@ -14,3 +14,8 @@ These are the prompts/questions I asked:
 * Can you explain my code and tell me why it keeps repeating?
 * How do I prevent duplicate items in the cart and just update the quantity instead?
 * Can you help me improve my program structure without rewriting everything?
+Improvements after using AI
+
+The AI helped me in several areas of the project, including fixing loop errors, improving stock validation, and properly organizing the cart structure. After using AI, I improved my program by correcting logical errors, adding proper input validation, and ensuring that stock updates correctly after each transaction. I also improved the flow of my program so that it proceeds properly to the receipt after checkout and prevents invalid user inputs.
+
+These improvements made my program more organized, functional, and easier to understand. Through the use of AI for debugging and guidance, I was able to develop a more efficient console application that manages inventory, processes cart transactions, and handles errors properly.
