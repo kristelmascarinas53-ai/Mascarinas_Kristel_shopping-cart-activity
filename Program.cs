@@ -84,6 +84,67 @@ static void ViewCart(CartItem[] cart, int cartCount)
         Console.WriteLine($"{cart[i].Product.Id}. {cart[i].Product.Name} x{cart[i].Quantity}");
     }
 }
+     static void RemoveItem(CartItem[] cart, ref int cartCount)
+ {
+     Console.Write("Enter Product ID to remove: ");
+
+     if (!int.TryParse(Console.ReadLine(), out int id))
+     {
+         PrintCentered("Invalid input.");
+         return;
+     }
+
+     for (int i = 0; i < cartCount; i++)
+     {
+         if (cart[i].Product.Id == id)
+         {
+             for (int j = i; j < cartCount - 1; j++)
+             {
+                 cart[j] = cart[j + 1];
+             }
+
+             cartCount--;
+             PrintCentered("Item removed.");
+             return;
+         }
+     }
+
+     PrintCentered("Item not found.");
+ }
+
+ static void UpdateQuantity(CartItem[] cart, int cartCount)
+ {
+     Console.Write("Enter Product ID to update: ");
+
+     if (!int.TryParse(Console.ReadLine(), out int id))
+     {
+         PrintCentered("Invalid input.");
+         return;
+     }
+
+     for (int i = 0; i < cartCount; i++)
+     {
+         if (cart[i].Product.Id == id)
+         {
+             Console.Write("Enter new quantity: ");
+
+             if (!int.TryParse(Console.ReadLine(), out int newQty) || newQty <= 0)
+             {
+                 PrintCentered("Invalid quantity.");
+                 return;
+             }
+
+             cart[i].Quantity = newQty;
+             cart[i].Subtotal = cart[i].Product.GetItemTotal(newQty);
+
+             PrintCentered("Quantity updated.");
+             return;
+         }
+     }
+
+     PrintCentered("Item not found.");
+ }
+
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
