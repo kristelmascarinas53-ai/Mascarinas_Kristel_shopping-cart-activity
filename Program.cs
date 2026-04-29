@@ -268,7 +268,20 @@ PrintCentered("============================================== RECEIPT ==========
         {
             PrintCentered($"{product.Name}: {product.RemainingStock}");
         }
+        
+PrintCentered("============== ORDER HISTORY ==============");
 
+if (historyCount == 0)
+{
+    PrintCentered("No orders yet.");
+}
+else
+{
+    for (int i = 0; i < historyCount; i++)
+    {
+        PrintCentered(orderHistory[i]);
+    }
+}
         PrintCentered("Thank you for shopping!");
     }
     
