@@ -69,7 +69,21 @@ class Program
         }
         return true;
     }
+static void ViewCart(CartItem[] cart, int cartCount)
+{
+    Console.WriteLine("\n=== YOUR CART ===");
 
+    if (cartCount == 0)
+    {
+        Console.WriteLine("Cart is empty.");
+        return;
+    }
+
+    for (int i = 0; i < cartCount; i++)
+    {
+        Console.WriteLine($"{cart[i].Product.Id}. {cart[i].Product.Name} x{cart[i].Quantity}");
+    }
+}
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
