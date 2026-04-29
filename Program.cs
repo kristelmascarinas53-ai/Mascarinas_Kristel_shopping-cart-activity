@@ -44,7 +44,7 @@ class CartItem
 }
 class Program
 {
-    // ✅ Centered + spaced printing
+  
     static void PrintCentered(string text)
     {
         int screenWidth = Console.WindowWidth;
@@ -53,9 +53,9 @@ class Program
         int spaces = (screenWidth - textLength) / 2;
         if (spaces < 0) spaces = 0;
 
-        Console.WriteLine(); // space above
+        Console.WriteLine(); 
         Console.WriteLine(new string(' ', spaces) + text);
-        Console.WriteLine(); // space below
+        Console.WriteLine(); 
     }
 
     static bool AreAllProductsOutOfStock(Product[] products)
@@ -89,7 +89,6 @@ class Program
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-       // ✅ SET GLOBAL STYLE
         Console.ForegroundColor = ConsoleColor.Green;
         Console.BackgroundColor = ConsoleColor.White;
         Console.Clear();
@@ -107,6 +106,10 @@ class Program
         int cartCount = 0;
 
         bool continueShopping = true;
+
+         int receiptCounter = 1;
+         string[] orderHistory = new string[20];
+         int historyCount = 0;
 
         while (continueShopping)
         {
@@ -202,6 +205,13 @@ PrintCentered("============================================== STORE MENU =======
         double grandTotal = 0;
 
 PrintCentered("============================================== RECEIPT ==============================================");
+
+        string receiptNumber = receiptCounter.ToString("D4");
+        string dateNow = DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt");
+
+        PrintCentered($"Receipt No: {receiptNumber}");
+        PrintCentered($"Date: {dateNow}");
+        
         for (int i = 0; i < cartCount; i++)
         {
             PrintCentered($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
@@ -215,6 +225,39 @@ PrintCentered("============================================== RECEIPT ==========
         }
 
         double finalTotal = grandTotal - discount;
+
+         double payment;
+ while (true)
+ {
+     Console.Write("\nEnter payment amount: ");
+
+     if (!double.TryParse(Console.ReadLine(), out payment))
+     {
+         PrintCentered("Invalid input. Please enter a number.");
+         continue;
+     }
+
+     if (payment < finalTotal)
+     {
+         PrintCentered("Insufficient payment. Please enter a valid amount.");
+         continue;
+     }
+
+     break;
+ }
+
+ double change = payment - finalTotal;
+
+ PrintCentered($"Payment: ₱{payment}");
+ PrintCentered($"Change: ₱{change}");
+
+ if (historyCount < orderHistory.Length)
+ {
+     orderHistory[historyCount] = $"Receipt #{receiptNumber} - Final Total: ₱{finalTotal}";
+     historyCount++;
+ }
+
+ receiptCounter++;
 
         PrintCentered($"Grand Total: ₱{grandTotal}");
         PrintCentered($"Discount: ₱{discount}");
