@@ -276,6 +276,31 @@ PrintCentered("============================================== RECEIPT ==========
 
         double finalTotal = grandTotal - discount;
 
+double payment;
+while (true)
+{
+    Console.Write("\nEnter payment amount: ");
+
+    if (!double.TryParse(Console.ReadLine(), out payment))
+    {
+        PrintCentered("Invalid input. Please enter a number.");
+        continue;
+    }
+
+    if (payment < finalTotal)
+    {
+        PrintCentered("Insufficient payment. Please enter a valid amount.");
+        continue;
+    }
+
+    break;
+}
+
+double change = payment - finalTotal;
+
+PrintCentered($"Payment: ₱{payment}");
+PrintCentered($"Change: ₱{change}");
+        
         PrintCentered($"Grand Total: ₱{grandTotal}");
         PrintCentered($"Discount: ₱{discount}");
         PrintCentered($"Final Total: ₱{finalTotal}");
