@@ -4,6 +4,7 @@ class Product
 {
     public int Id;
     public string Name;
+    public string Category;
     public double Price;
     public int RemainingStock;
 
@@ -44,7 +45,6 @@ class CartItem
 }
 class Program
 {
-    // ✅ Centered + spaced printing
     static void PrintCentered(string text)
     {
         int screenWidth = Console.WindowWidth;
@@ -53,9 +53,9 @@ class Program
         int spaces = (screenWidth - textLength) / 2;
         if (spaces < 0) spaces = 0;
 
-        Console.WriteLine(); // space above
+        Console.WriteLine(); 
         Console.WriteLine(new string(' ', spaces) + text);
-        Console.WriteLine(); // space below
+        Console.WriteLine();
     }
 
     static bool AreAllProductsOutOfStock(Product[] products)
@@ -149,11 +149,10 @@ static void ViewCart(CartItem[] cart, int cartCount)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-       // ✅ SET GLOBAL STYLE
         Console.ForegroundColor = ConsoleColor.Green;
         Console.BackgroundColor = ConsoleColor.White;
-        Console.Clear(); // apply background
-
+        Console.Clear(); 
+        
         Product[] products = new Product[]
         {
             new Product { Id = 1, Name = "Laptop", Price = 1500, RemainingStock = 5 },
@@ -167,6 +166,7 @@ static void ViewCart(CartItem[] cart, int cartCount)
         int cartCount = 0;
 
         bool continueShopping = true;
+        int receiptCounter = 1;
 
         while (continueShopping)
         {
@@ -177,8 +177,61 @@ PrintCentered("============================================== STORE MENU =======
                 product.DisplayProduct();
             }
 
-            Console.Write("\nEnter product number: ");
-            if (!int.TryParse(Console.ReadLine(), out int productChoice))
+           Console.WriteLine("S. Search Product");
+           Console.WriteLine("C. Filter by Category");
+
+           Console.Write("\nEnter product number / option: ");
+           string input = Console.ReadLine();
+           
+if (input.ToUpper() == "S")
+{
+    Console.Write("Enter product name to search: ");
+    string keyword = Console.ReadLine().ToLower();
+
+    bool found = false;
+
+    foreach (var p in products)
+    {
+        if (p.Name.ToLower().Contains(keyword))
+        {
+            Console.WriteLine($"{p.Id}. {p.Name} - ₱{p.Price} - Stock: {p.RemainingStock}");
+            found = true;
+        }
+    }
+
+    if (!found)
+        Console.WriteLine("No product found.");
+
+    continue;
+}
+
+
+if (input.ToUpper() == "C")
+{
+    Console.WriteLine("1. Food");
+    Console.WriteLine("2. Electronics");
+    Console.WriteLine("3. Clothing");
+
+    string cat = Console.ReadLine();
+
+    foreach (var p in products)
+    {
+        if ((cat == "1" && p.Category == "Food") ||
+            (cat == "2" && p.Category == "Electronics") ||
+            (cat == "3" && p.Category == "Clothing"))
+        {
+            Console.WriteLine($"{p.Id}. {p.Name}");
+        }
+    }
+
+    continue;
+}
+
+if (!int.TryParse(input, out int productChoice))
+{
+    PrintCentered("Invalid input.");
+    continue;
+}
             {
                 PrintCentered("Invalid input. Please enter a number.");
                 continue;
@@ -251,7 +304,19 @@ PrintCentered("============================================== STORE MENU =======
             }
 
             Console.Write("Do you want to add more items? (Y/N): ");
-            string choice = Console.ReadLine().Trim().ToUpper();
+           string choice;
+
+do
+{
+    Console.Write("Do you want to add more items? (Y/N): ");
+    choice = Console.ReadLine().Trim().ToUpper();
+
+    if (choice != "Y" && choice != "N")
+    {
+        PrintCentered("Invalid input. Please enter Y or N only.");
+    }
+
+} while (choice != "Y" && choice != "N");
 
             if (choice != "Y")
             {
@@ -261,7 +326,14 @@ PrintCentered("============================================== STORE MENU =======
 
         double grandTotal = 0;
 
-PrintCentered("============================================== RECEIPT ==============================================");
+PrintCentered("================================ RECEIPT ==============================================");
+
+string receiptNo = receiptCounter.ToString("D4");
+string dateNow = DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt");
+
+PrintCentered($"Receipt No: {receiptNo}");
+PrintCentered($"Date: {dateNow}");
+        
         for (int i = 0; i < cartCount; i++)
         {
             PrintCentered($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
@@ -304,13 +376,52 @@ PrintCentered($"Change: ₱{change}");
         PrintCentered($"Grand Total: ₱{grandTotal}");
         PrintCentered($"Discount: ₱{discount}");
         PrintCentered($"Final Total: ₱{finalTotal}");
+        double payment;
+
+while (true)
+{
+    Console.Write("Enter payment: ");
+
+    if (!double.TryParse(Console.ReadLine(), out payment))
+    {
+        PrintCentered("Invalid input.");
+        continue;
+    }
+
+    if (payment < finalTotal)
+    {
+        PrintCentered("Insufficient payment.");
+        continue;
+    }
+
+    break;
+}
+
+double change = payment - finalTotal;
+
+PrintCentered($"Payment: ₱{payment}");
+PrintCentered($"Change: ₱{change}");
 
         PrintCentered("============================================== UPDATED STOCK =========================================== ");
+        PrintCentered("LOW STOCK ALERT:");
+
+foreach (var p in products)
+{
+    if (p.RemainingStock <= 5)
+    {
+        PrintCentered($"{p.Name} has only {p.RemainingStock} left.");
+    }
+}
         foreach (var product in products)
         {
             PrintCentered($"{product.Name}: {product.RemainingStock}");
         }
+PrintCentered("============== ORDER HISTORY ==============");
 
+for (int i = 0; i < historyCount; i++)
+{
+    PrintCentered(orderHistory[i]);
+}
         PrintCentered("Thank you for shopping!");
     }
     
