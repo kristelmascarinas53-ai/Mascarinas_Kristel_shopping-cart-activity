@@ -1,4 +1,4 @@
-#**Shopping Cart System – Part 2**#
+##**Shopping Cart System – Part 2**
 
  Overview
 This project is an enhanced version of a console-based Shopping Cart System built using C#. It allows users to browse products, add items to cart, manage cart contents, and complete purchases with proper validation and receipt generation.
@@ -49,7 +49,7 @@ Stores completed transactions during runtime and allows users to view past order
 Input Validation
 All inputs such as menu choices, quantities, and payment are validated to prevent program crashes.
 
-#**AI Usage In This Project**#
+##**AI Usage In This Project**
 
 I used different AI tools such as ChatGPT, Gemini AI, and Claude AI as a collaborative coding assistant throughout the development of my shopping cart system. These AI tools were used to help me design, debug, and improve different parts of my program including product management, cart system, checkout process, stock handling, and order history tracking.
 
@@ -120,7 +120,7 @@ Example prompts:
 - "how to validate user input in console application"
 - "how to prevent program crash from invalid input"
 
-#**Improvements After Using AI**#
+##**Improvements After Using AI**
 
 After using AI assistance, I was able to significantly improve my program in the following areas:
 
@@ -134,7 +134,7 @@ After using AI assistance, I was able to significantly improve my program in the
 
 Overall, the system became more stable, functional, and easier to use after applying AI-assisted debugging and improvements.
 
-#**Summary of changes**#
+##**Summary of changes**
 
 This update improves the original Shopping Cart System by expanding it into a more complete and interactive console-based shopping application. The system now includes full cart management, improved user interaction, and additional requirements aligned with Part 2 of the activity.
 
