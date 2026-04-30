@@ -159,7 +159,9 @@ static void ViewCart(CartItem[] cart, int cartCount)
            new Product { Id = 2, Name = "Mouse", Category="Electronics", Price = 500, RemainingStock = 10 },
            new Product { Id = 3, Name = "Keyboard", Category="Electronics", Price = 1500, RemainingStock = 7 },
            new Product { Id = 4, Name = "Lapis", Category="School", Price = 200, RemainingStock = 23 },
-           new Product { Id = 5, Name = "Tissue", Category="Household", Price = 10, RemainingStock = 34 }
+           new Product { Id = 5, Name = "ballpen", Category="School", Price = 200, RemainingStock = 20 },
+           new Product { Id = 6, Name = "plate", Category="Household", Price = 250, RemainingStock = 15 },
+           new Product { Id = 7, Name = "Tissue", Category="Household", Price = 10, RemainingStock = 34 }
         };
 
         CartItem[] cart = new CartItem[10];
@@ -210,17 +212,17 @@ if (input.ToUpper() == "S")
 
 if (input.ToUpper() == "C")
 {
-    Console.WriteLine("1. Food");
-    Console.WriteLine("2. Electronics");
-    Console.WriteLine("3. Clothing");
+    Console.WriteLine("1. Electronics");
+    Console.WriteLine("2. School");
+    Console.WriteLine("3. Household");
 
     string cat = Console.ReadLine();
 
     foreach (var p in products)
     {
-        if ((cat == "1" && p.Category == "Food") ||
-            (cat == "2" && p.Category == "Electronics") ||
-            (cat == "3" && p.Category == "Clothing"))
+     if ((cat == "1" && p.Category == "Electronics") ||
+    (cat == "2" && p.Category == "School") ||
+    (cat == "3" && p.Category == "Household"))
         {
             Console.WriteLine($"{p.Id}. {p.Name}");
         }
@@ -344,8 +346,13 @@ PrintCentered($"Date: {dateNow}");
         }
 
         double finalTotal = grandTotal - discount;
-
-double payment;
+        
+         PrintCentered($"Grand Total: ₱{grandTotal}");
+        PrintCentered($"Discount: ₱{discount}");
+        PrintCentered($"Final Total: ₱{finalTotal}");
+        
+        double payment;
+        
 while (true)
 {
     Console.Write("\nEnter payment amount: ");
@@ -377,23 +384,21 @@ PrintCentered($"Change: ₱{change}");
 }
 
 receiptCounter++;
-        
-        PrintCentered($"Grand Total: ₱{grandTotal}");
-        PrintCentered($"Discount: ₱{discount}");
-        PrintCentered($"Final Total: ₱{finalTotal}");
-       
-double change = payment - finalTotal;
-
-PrintCentered($"Payment: ₱{payment}");
-PrintCentered($"Change: ₱{change}");
 
         PrintCentered("============================================== UPDATED STOCK =========================================== ");
-        PrintCentered("LOW STOCK ALERT:");
+
+bool hasLowStock = false;
 
 foreach (var p in products)
 {
     if (p.RemainingStock <= 5)
     {
+        if (!hasLowStock)
+        {
+            PrintCentered("LOW STOCK ALERT:");
+            hasLowStock = true;
+        }
+
         PrintCentered($"{p.Name} has only {p.RemainingStock} left.");
     }
 }
