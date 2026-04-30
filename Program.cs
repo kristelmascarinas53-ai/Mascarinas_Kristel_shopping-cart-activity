@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 class Product
 {
     public int Id;
@@ -143,7 +143,27 @@ class Program
 
         PrintCentered("Item not found.");
     }
+    static double ShowSemiReceipt(CartItem[] cart, int cartCount)
+    {
+        double total = 0;
 
+        PrintCentered("========== ORDER SUMMARY ==========");
+
+        for (int i = 0; i < cartCount; i++)
+        {
+            PrintCentered($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
+            total += cart[i].Subtotal;
+        }
+
+        double discount = total >= 5000 ? total * 0.10 : 0;
+        double finalTotal = total - discount;
+
+        PrintCentered($"Grand Total: ₱{total}");
+        PrintCentered($"Discount: ₱{discount}");
+        PrintCentered($"Final Total: ₱{finalTotal}");
+
+        return finalTotal;
+    }
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -188,7 +208,7 @@ class Program
             string input = Console.ReadLine();
 
             if (input.ToUpper() == "M")
-                {
+            {
                 bool inCartMenu = true;
 
                 while (inCartMenu)
@@ -306,7 +326,7 @@ class Program
                     }
                 }
 
-                continue; 
+                continue;
             }
 
             if (input.ToUpper() == "S")
@@ -333,7 +353,7 @@ class Program
 
 
             if (input.ToUpper() == "C")
-            {   
+            {
                 bool inCategory = true;
 
                 while (inCategory)
@@ -431,11 +451,11 @@ class Program
                     }
                     else if (action == "C")
                     {
-                        continue; // choose category again
+                        continue; 
                     }
                     else if (action == "M")
                     {
-                        break; // exit category menu
+                        break;
                     }
                     else
                     {
@@ -534,99 +554,68 @@ class Program
             if (choice != "Y")
             {
                 continueShopping = false;
-            }
-        }
 
-        double grandTotal = 0;
+                double finalTotalSemi = ShowSemiReceipt(cart, cartCount);
 
-        PrintCentered("================================ RECEIPT ==============================================");
+                double paymentSemi;
 
-        string receiptNo = receiptCounter.ToString("D4");
-        string dateNow = DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt");
-
-        PrintCentered($"Receipt No: {receiptNo}");
-        PrintCentered($"Date: {dateNow}");
-
-        for (int i = 0; i < cartCount; i++)
-        {
-            PrintCentered($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
-            grandTotal += cart[i].Subtotal;
-        }
-
-        double discount = 0;
-        if (grandTotal >= 5000)
-        {
-            discount = grandTotal * 0.10;
-        }
-
-        double finalTotal = grandTotal - discount;
-
-        PrintCentered($"Grand Total: ₱{grandTotal}");
-        PrintCentered($"Discount: ₱{discount}");
-        PrintCentered($"Final Total: ₱{finalTotal}");
-
-        double payment;
-
-        while (true)
-        {
-            Console.Write("\nEnter payment amount: ");
-
-            if (!double.TryParse(Console.ReadLine(), out payment))
-            {
-                PrintCentered("Invalid input. Please enter a number.");
-                continue;
-            }
-
-            if (payment < finalTotal)
-            {
-                PrintCentered("Insufficient payment. Please enter a valid amount.");
-                continue;
-            }
-
-            break;
-        }
-
-        double change = payment - finalTotal;
-
-        PrintCentered($"Payment: ₱{payment}");
-        PrintCentered($"Change: ₱{change}");
-
-        if (historyCount < orderHistory.Length)
-        {
-            orderHistory[historyCount] = $"Receipt #{receiptNo} - Final Total: ₱{finalTotal}";
-            historyCount++;
-        }
-
-        receiptCounter++;
-
-        PrintCentered("============================================== UPDATED STOCK =========================================== ");
-
-        bool hasLowStock = false;
-
-        foreach (var p in products)
-        {
-            if (p.RemainingStock <= 5)
-            {
-                if (!hasLowStock)
+                while (true)
                 {
-                    PrintCentered("LOW STOCK ALERT:");
-                    hasLowStock = true;
+                    Console.Write("Enter payment amount: ");
+
+                    if (!double.TryParse(Console.ReadLine(), out paymentSemi))
+                    {
+                        PrintCentered("Invalid input.");
+                        continue;
+                    }
+
+                    if (paymentSemi < finalTotalSemi)
+                    {
+                        PrintCentered("Insufficient payment.");
+                        continue;
+                    }
+
+                    break;
                 }
 
-                PrintCentered($"{p.Name} has only {p.RemainingStock} left.");
+                double changeSemi = paymentSemi - finalTotalSemi;
+
+                PrintCentered("========== OFFICIAL RECEIPT ==========");
+
+                string receiptNo = receiptCounter.ToString("D4");
+                string dateNow = DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt");
+
+                PrintCentered($"Receipt No: {receiptNo}");
+                PrintCentered($"Date: {dateNow}");
+
+                double receiptTotal = 0;
+
+                for (int i = 0; i < cartCount; i++)
+                {
+                    PrintCentered($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
+                    receiptTotal += cart[i].Subtotal;
+                }
+
+                double discount = receiptTotal >= 5000 ? receiptTotal * 0.10 : 0;
+                double finalTotal = receiptTotal - discount;
+
+                PrintCentered($"Grand Total: ₱{receiptTotal}");
+                PrintCentered($"Discount: ₱{discount}");
+                PrintCentered($"Final Total: ₱{finalTotal}");
+
+                PrintCentered($"Payment: ₱{paymentSemi}");
+                PrintCentered($"Change: ₱{changeSemi}");
+
+                receiptCounter++;
+                cartCount = 0;
+
+                PrintCentered("THANK YOU FOR SHOPPING!");
             }
         }
-        foreach (var product in products)
-        {
-            PrintCentered($"{product.Name}: {product.RemainingStock}");
-        }
-        PrintCentered("============== ORDER HISTORY ==============");
 
-        for (int i = 0; i < historyCount; i++)
-        {
-            PrintCentered(orderHistory[i]);
+            double grandTotal = 0;
+
+          
         }
-        PrintCentered("Thank you for shopping!");
+
     }
-
-}
