@@ -171,13 +171,13 @@ class Program
         
         Product[] products = new Product[]
         {
-           new Product { Id = 1, Name = "Laptop", Category="Electronics", Price = 1500, RemainingStock = 5 },
-           new Product { Id = 2, Name = "Mouse", Category="Electronics", Price = 500, RemainingStock = 10 },
-           new Product { Id = 3, Name = "Keyboard", Category="Electronics", Price = 1500, RemainingStock = 7 },
-           new Product { Id = 4, Name = "Pencil", Category="School", Price = 200, RemainingStock = 23 },
-           new Product { Id = 5, Name = "Ballpen", Category="School", Price = 200, RemainingStock = 20 },
-           new Product { Id = 6, Name = "Plate", Category="Household", Price = 250, RemainingStock = 15 },
-           new Product { Id = 7, Name = "Tissue", Category="Household", Price = 10, RemainingStock = 34 }
+           new Product { Id = 1, Name = "Laptop", Category="Electronics", Price = 3500, RemainingStock = 20 },
+           new Product { Id = 2, Name = "Mouse", Category="Electronics", Price = 500, RemainingStock = 25 },
+           new Product { Id = 3, Name = "Keyboard", Category="Electronics", Price = 1500, RemainingStock = 30 },
+           new Product { Id = 4, Name = "Pencil", Category="School", Price = 100, RemainingStock = 35 },
+           new Product { Id = 5, Name = "Ballpen", Category="School", Price = 150, RemainingStock = 40 },
+           new Product { Id = 6, Name = "Plate", Category="Household", Price = 250, RemainingStock = 45 },
+           new Product { Id = 7, Name = "Tissue", Category="Household", Price = 250, RemainingStock = 50 }
         };
 
         CartItem[] cart = new CartItem[10];
