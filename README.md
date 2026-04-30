@@ -1,4 +1,4 @@
-#**Shopping Cart System – Part 2**
+**#**Shopping Cart System – Part 2*************
 
  Overview
 This project is an enhanced version of a console-based Shopping Cart System built using C#. It allows users to browse products, add items to cart, manage cart contents, and complete purchases with proper validation and receipt generation.
