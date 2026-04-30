@@ -155,11 +155,11 @@ static void ViewCart(CartItem[] cart, int cartCount)
         
         Product[] products = new Product[]
         {
-            new Product { Id = 1, Name = "Laptop", Price = 1500, RemainingStock = 5 },
-            new Product { Id = 2, Name = "Mouse", Price = 500, RemainingStock = 10 },
-            new Product { Id = 3, Name = "Keyboard", Price = 1500, RemainingStock = 7 },
-            new Product { Id = 4, Name = "Lapis", Price = 200, RemainingStock = 23 },
-            new Product { Id = 5, Name = "Tissue", Price = 10, RemainingStock = 34 }
+           new Product { Id = 1, Name = "Laptop", Category="Electronics", Price = 1500, RemainingStock = 5 },
+           new Product { Id = 2, Name = "Mouse", Category="Electronics", Price = 500, RemainingStock = 10 },
+           new Product { Id = 3, Name = "Keyboard", Category="Electronics", Price = 1500, RemainingStock = 7 },
+           new Product { Id = 4, Name = "Lapis", Category="School", Price = 200, RemainingStock = 23 },
+           new Product { Id = 5, Name = "Tissue", Category="Household", Price = 10, RemainingStock = 34 }
         };
 
         CartItem[] cart = new CartItem[10];
@@ -167,6 +167,8 @@ static void ViewCart(CartItem[] cart, int cartCount)
 
         bool continueShopping = true;
         int receiptCounter = 1;
+        string[] orderHistory = new string[20];
+int historyCount = 0;
 
         while (continueShopping)
         {
@@ -229,13 +231,9 @@ if (input.ToUpper() == "C")
 
 if (!int.TryParse(input, out int productChoice))
 {
-    PrintCentered("Invalid input.");
+    PrintCentered("Invalid input. Please enter a number.");
     continue;
 }
-            {
-                PrintCentered("Invalid input. Please enter a number.");
-                continue;
-            }
 
             if (productChoice < 1 || productChoice > products.Length)
             {
@@ -303,7 +301,6 @@ if (!int.TryParse(input, out int productChoice))
                 break;
             }
 
-            Console.Write("Do you want to add more items? (Y/N): ");
            string choice;
 
 do
@@ -373,30 +370,18 @@ double change = payment - finalTotal;
 PrintCentered($"Payment: ₱{payment}");
 PrintCentered($"Change: ₱{change}");
         
+        if (historyCount < orderHistory.Length)
+{
+    orderHistory[historyCount] = $"Receipt #{receiptNo} - Final Total: ₱{finalTotal}";
+    historyCount++;
+}
+
+receiptCounter++;
+        
         PrintCentered($"Grand Total: ₱{grandTotal}");
         PrintCentered($"Discount: ₱{discount}");
         PrintCentered($"Final Total: ₱{finalTotal}");
-        double payment;
-
-while (true)
-{
-    Console.Write("Enter payment: ");
-
-    if (!double.TryParse(Console.ReadLine(), out payment))
-    {
-        PrintCentered("Invalid input.");
-        continue;
-    }
-
-    if (payment < finalTotal)
-    {
-        PrintCentered("Insufficient payment.");
-        continue;
-    }
-
-    break;
-}
-
+       
 double change = payment - finalTotal;
 
 PrintCentered($"Payment: ₱{payment}");
