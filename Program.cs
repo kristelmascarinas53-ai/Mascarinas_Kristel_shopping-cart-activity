@@ -45,19 +45,22 @@ class CartItem
 }
 class Program
 {
-    static void PrintCentered(string text)
+   static void PrintCentered(string text)
+{
+    try
     {
-        int screenWidth = Console.WindowWidth;
-        int textLength = text.Length;
+        int width = Console.WindowWidth;
+        int padding = Math.Max((width - text.Length) / 2, 0);
 
-        int spaces = (screenWidth - textLength) / 2;
-        if (spaces < 0) spaces = 0;
-
-        Console.WriteLine(); 
-        Console.WriteLine(new string(' ', spaces) + text);
+        Console.WriteLine();
+        Console.WriteLine(new string(' ', padding) + text);
         Console.WriteLine();
     }
-
+    catch
+    {
+        Console.WriteLine(text);
+    }
+}
     static bool AreAllProductsOutOfStock(Product[] products)
     {
         foreach (var product in products)
@@ -151,7 +154,12 @@ static void ViewCart(CartItem[] cart, int cartCount)
 
         Console.ForegroundColor = ConsoleColor.Green;
         Console.BackgroundColor = ConsoleColor.White;
-        Console.Clear(); 
+        
+       try
+{
+    Console.Clear();
+}
+catch { }
         
         Product[] products = new Product[]
         {
@@ -170,7 +178,7 @@ static void ViewCart(CartItem[] cart, int cartCount)
         bool continueShopping = true;
         int receiptCounter = 1;
         string[] orderHistory = new string[20];
-int historyCount = 0;
+        int historyCount = 0;
 
         while (continueShopping)
         {
@@ -185,12 +193,13 @@ PrintCentered("============================================== STORE MENU =======
            Console.WriteLine("C. Filter by Category");
 
            Console.Write("\nEnter product number / option: ");
-           string input = Console.ReadLine();
-           
-if (input.ToUpper() == "S")
+           string input = Console.ReadLine() ?? "";
+           input = input.Trim().ToUpper();
+             
+if (input == "S")
 {
     Console.Write("Enter product name to search: ");
-    string keyword = Console.ReadLine().ToLower();
+    string keyword = (Console.ReadLine() ?? "").ToLower();
 
     bool found = false;
 
@@ -209,14 +218,13 @@ if (input.ToUpper() == "S")
     continue;
 }
 
-
-if (input.ToUpper() == "C")
+if (input == "C")
 {
     Console.WriteLine("1. Electronics");
     Console.WriteLine("2. School");
     Console.WriteLine("3. Household");
 
-    string cat = Console.ReadLine();
+  string cat = (Console.ReadLine() ?? "").Trim();
 
     foreach (var p in products)
     {
