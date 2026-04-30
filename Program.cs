@@ -9,7 +9,6 @@ class Product
 
     public void DisplayProduct()
     {
-        Console.ForegroundColor = ConsoleColor.Green;
 
         string text = $"{Id}. {Name} - ₱{Price} (Stock: {RemainingStock})";
 
@@ -168,18 +167,16 @@ class Program
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.BackgroundColor = ConsoleColor.White;
-        Console.Clear();
-
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        
         Product[] products = new Product[]
         {
            new Product { Id = 1, Name = "Laptop", Category="Electronics", Price = 1500, RemainingStock = 5 },
            new Product { Id = 2, Name = "Mouse", Category="Electronics", Price = 500, RemainingStock = 10 },
            new Product { Id = 3, Name = "Keyboard", Category="Electronics", Price = 1500, RemainingStock = 7 },
-           new Product { Id = 4, Name = "Lapis", Category="School", Price = 200, RemainingStock = 23 },
-           new Product { Id = 5, Name = "ballpen", Category="School", Price = 200, RemainingStock = 20 },
-           new Product { Id = 6, Name = "plate", Category="Household", Price = 250, RemainingStock = 15 },
+           new Product { Id = 4, Name = "Pencil", Category="School", Price = 200, RemainingStock = 23 },
+           new Product { Id = 5, Name = "Ballpen", Category="School", Price = 200, RemainingStock = 20 },
+           new Product { Id = 6, Name = "Plate", Category="Household", Price = 250, RemainingStock = 15 },
            new Product { Id = 7, Name = "Tissue", Category="Household", Price = 10, RemainingStock = 34 }
         };
 
@@ -202,127 +199,24 @@ class Program
 
             Console.WriteLine("S. Search Product");
             Console.WriteLine("C. Filter by Category");
-            Console.WriteLine("M. Cart Menu");
+            Console.WriteLine("H. View Order History");
 
             Console.Write("\nEnter product number / option: ");
             string input = Console.ReadLine();
 
-            if (input.ToUpper() == "M")
+            if (input.ToUpper() == "H")
             {
-                bool inCartMenu = true;
+                PrintCentered("======= ORDER HISTORY =======");
 
-                while (inCartMenu)
+                if (historyCount == 0)
                 {
-                    Console.WriteLine("1. View Cart");
-                    Console.WriteLine("2. Remove Item");
-                    Console.WriteLine("3. Update Quantity");
-                    Console.WriteLine("4. Clear Cart");
-                    Console.WriteLine("5. Checkout");
-                    Console.WriteLine("6. Back");
-
-                    bool isCartEmpty = cartCount == 0;
-
-                    Console.Write("Choice: ");
-                    string cartChoice = Console.ReadLine();
-
-                    if (cartChoice == "1")
+                    PrintCentered("No orders yet.");
+                }
+                else
+                {
+                    for (int i = 0; i < historyCount; i++)
                     {
-                        ViewCart(cart, cartCount);
-                    }
-                    else if (cartChoice == "2")
-                    {
-                        if (cartCount == 0)
-                        {
-                            PrintCentered("Cart is empty. Nothing to remove.");
-                        }
-                        else
-                        {
-                            RemoveItem(cart, ref cartCount);
-                        }
-                    }
-                    else if (cartChoice == "3")
-                    {
-                        if (cartCount == 0)
-                        {
-                            PrintCentered("Cart is empty. Nothing to update.");
-                        }
-                        else
-                        {
-                            UpdateQuantity(cart, cartCount);
-                        }
-                    }
-                    else if (cartChoice == "4")
-                    {
-                        if (cartCount == 0)
-                        {
-                            PrintCentered("Cart is already empty.");
-                        }
-                        else
-                        {
-                            cartCount = 0;
-                            PrintCentered("Cart cleared.");
-                        }
-                    }
-                    else if (cartChoice == "5")
-                    {
-                        if (cartCount == 0)
-                        {
-                            PrintCentered("Cart is empty. Cannot checkout.");
-                        }
-                        else
-                        {
-                            double total = 0;
-
-                            PrintCentered("=========== RECEIPT ===========");
-
-                            for (int i = 0; i < cartCount; i++)
-                            {
-                                PrintCentered($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
-                                total += cart[i].Subtotal;
-                            }
-
-                            double discountLocal = total >= 5000 ? total * 0.10 : 0;
-                            double finalLocal = total - discountLocal;
-
-                            PrintCentered($"Grand Total: ₱{total}");
-                            PrintCentered($"Discount: ₱{discountLocal}");
-                            PrintCentered($"Final Total: ₱{finalLocal}");
-
-                            double paymentLocal;
-
-                            while (true)
-                            {
-                                Console.Write("Enter payment: ");
-
-                                if (!double.TryParse(Console.ReadLine(), out paymentLocal))
-                                {
-                                    PrintCentered("Invalid input.");
-                                    continue;
-                                }
-
-                                if (paymentLocal < finalLocal)
-                                {
-                                    PrintCentered("Insufficient payment.");
-                                    continue;
-                                }
-
-                                break;
-                            }
-
-                            PrintCentered($"Change: ₱{paymentLocal - finalLocal}");
-
-                            cartCount = 0;
-
-                            PrintCentered("Checkout successful!");
-                        }
-                    }
-                    else if (cartChoice == "6")
-                    {
-                        inCartMenu = false;
-                    }
-                    else
-                    {
-                        PrintCentered("Invalid choice.");
+                        PrintCentered(orderHistory[i]);
                     }
                 }
 
@@ -331,26 +225,30 @@ class Program
 
             if (input.ToUpper() == "S")
             {
-                Console.Write("Enter product name to search: ");
+                Console.Write("\nEnter product name to search: ");
                 string keyword = Console.ReadLine().ToLower();
 
                 bool searchFound = false;
+
+                PrintCentered("======= SEARCH RESULTS =======");
 
                 foreach (var p in products)
                 {
                     if (p.Name.ToLower().Contains(keyword))
                     {
-                        Console.WriteLine($"{p.Id}. {p.Name} - ₱{p.Price} - Stock: {p.RemainingStock}");
+                        PrintCentered($"{p.Id}. {p.Name} - ₱{p.Price} (Stock: {p.RemainingStock})");
                         searchFound = true;
                     }
                 }
 
                 if (!searchFound)
-                    Console.WriteLine("No product found.");
+                {
+                    PrintCentered("No product found.");
+                }
 
+                Console.WriteLine(); 
                 continue;
             }
-
 
             if (input.ToUpper() == "C")
             {
@@ -398,7 +296,6 @@ class Program
                         continue;
                     }
 
-                    // ================= NEW ACTION MENU =================
                     Console.WriteLine("\nOptions:");
                     Console.WriteLine("A. Add to Cart");
                     Console.WriteLine("C. Choose Another Category");
@@ -410,10 +307,18 @@ class Program
                     if (action == "A")
                     {
                         Console.Write("Enter Product ID: ");
-                        int id = int.Parse(Console.ReadLine());
+                        if (!int.TryParse(Console.ReadLine(), out int id))
+                        {
+                            PrintCentered("Invalid input.");
+                            continue;
+                        }
 
                         Console.Write("Quantity: ");
-                        int qty = int.Parse(Console.ReadLine());
+                        if (!int.TryParse(Console.ReadLine(), out int qty) || qty <= 0)
+                        {
+                            PrintCentered("Invalid quantity.");
+                            continue;
+                        }
 
                         Product selected = products[id - 1];
 
@@ -451,7 +356,7 @@ class Program
                     }
                     else if (action == "C")
                     {
-                        continue; 
+                        continue;
                     }
                     else if (action == "M")
                     {
@@ -553,8 +458,63 @@ class Program
 
             if (choice != "Y")
             {
-                continueShopping = false;
+                bool inCartMenu = true;
 
+                while (inCartMenu)
+                {
+                    Console.WriteLine("\n===== CART MANAGEMENT MENU =====\n");
+                    Console.WriteLine("1. View Cart");
+                    Console.WriteLine("2. Remove Item");
+                    Console.WriteLine("3. Update Quantity");
+                    Console.WriteLine("4. Clear Cart");
+                    Console.WriteLine("5. Proceed to Checkout");
+                    Console.WriteLine("6. Cancel Order");
+
+                    Console.Write("\nChoice: ");
+                    string cartChoice = Console.ReadLine();
+
+                    Console.WriteLine();
+
+                    if (cartChoice == "1")
+                    {
+                        ViewCart(cart, cartCount);
+                    }
+                    else if (cartChoice == "2")
+                    {
+                        if (cartCount == 0)
+                            PrintCentered("Cart is empty.");
+                        else
+                            RemoveItem(cart, ref cartCount);
+                    }
+                    else if (cartChoice == "3")
+                    {
+                        if (cartCount == 0)
+                            PrintCentered("Cart is empty.");
+                        else
+                            UpdateQuantity(cart, cartCount);
+                    }
+                    else if (cartChoice == "4")
+                    {
+                        cartCount = 0;
+                        PrintCentered("Cart cleared.");
+                    }
+                    else if (cartChoice == "5")
+                    {
+                        inCartMenu = false; 
+                    }
+                    else if (cartChoice == "6")
+                    {
+                        PrintCentered("Order cancelled.");
+                        cartCount = 0;
+                        return;
+                    }
+                    else
+                    {
+                        PrintCentered("Invalid choice.");
+                    }
+                }
+
+                continueShopping = false;
                 double finalTotalSemi = ShowSemiReceipt(cart, cartCount);
 
                 double paymentSemi;
@@ -597,7 +557,7 @@ class Program
                 }
 
                 double discount = receiptTotal >= 5000 ? receiptTotal * 0.10 : 0;
-                double finalTotal = receiptTotal - discount;
+                double finalTotal = finalTotalSemi;
 
                 PrintCentered($"Grand Total: ₱{receiptTotal}");
                 PrintCentered($"Discount: ₱{discount}");
@@ -606,16 +566,44 @@ class Program
                 PrintCentered($"Payment: ₱{paymentSemi}");
                 PrintCentered($"Change: ₱{changeSemi}");
 
+                if (historyCount < orderHistory.Length)
+                {
+                    orderHistory[historyCount] = $"Receipt #{receiptNo} - Final Total: ₱{finalTotal}";
+                    historyCount++;
+                }
+                else
+                {
+                    PrintCentered("Order history is full.");
+                }
+
                 receiptCounter++;
                 cartCount = 0;
+
+                PrintCentered("===== LOW STOCK ALERT =====");
+
+                bool hasLowStock = false;
+
+                foreach (var p in products)
+                {
+                    if (p.RemainingStock <= 5)
+                    {
+                        PrintCentered($"{p.Name} has only {p.RemainingStock} stocks left.");
+                        hasLowStock = true;
+                    }
+                }
+
+                if (!hasLowStock)
+                {
+                    PrintCentered("All products have sufficient stock.");
+                }
 
                 PrintCentered("THANK YOU FOR SHOPPING!");
             }
         }
 
-            double grandTotal = 0;
+        double grandTotal = 0;
 
-          
-        }
-
+        Console.WriteLine();
     }
+
+}
