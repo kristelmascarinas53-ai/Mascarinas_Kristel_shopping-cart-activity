@@ -1,21 +1,84 @@
 AI Usage In This Project
 
-I used different types of AI such as ChatGPT, Gemini AI, and Claude AI as a collaborative coding partner. These AI tools helped me in building, organizing, and improving my shopping cart system project. They also assisted me in understanding parts of the code that were confusing, especially in handling loops, stock validation, and receipt generation. Furthermore, AI was used to help ensure that my program can properly handle user input errors and prevent logical issues in the flow of the system.
-Why AI was used?
+I used different AI tools such as ChatGPT, Gemini AI, and Claude AI as a collaborative coding assistant throughout the development of my shopping cart system. These AI tools were used to help me design, debug, and improve different parts of my program including product management, cart system, checkout process, stock handling, and order history tracking.
 
-I used AI to help solve bugs and logic errors that were difficult for me to fix on my own. For example, I had issues where my loop would not stop after reaching the maximum number of items in the cart, and I also struggled with updating stock correctly after each purchase. AI also helped me understand how to properly structure my program so that each part (menu, cart, stock, and receipt) works together smoothly.
-These are the prompts/questions I asked:
+AI was not used to fully generate the program, but rather as a guide to help me understand logic errors, fix bugs, and improve the overall structure and flow of my console application.
 
-* How do I update stock after a product is added to the cart in C#?
-* Why does my loop not stop after reaching the maximum number of items in the cart?
-* Can you help me combine my product, cart, and checkout code properly?
-* Where should I place the receipt generation in my program flow?
-* How do I check if a product is out of stock before adding it to the cart?
-* Can you explain my code and tell me why it keeps repeating?
-* How do I prevent duplicate items in the cart and just update the quantity instead?
-* Can you help me improve my program structure without rewriting everything?
-Improvements after using AI
+Why AI Was Used
 
-The AI helped me in several areas of the project, including fixing loop errors, improving stock validation, and properly organizing the cart structure. After using AI, I improved my program by correcting logical errors, adding proper input validation, and ensuring that stock updates correctly after each transaction. I also improved the flow of my program so that it proceeds properly to the receipt after checkout and prevents invalid user inputs.
+I used AI mainly to help solve logical and runtime issues that I encountered while developing the system. My program involves multiple interconnected parts such as product listing, cart management, category filtering, search functionality, checkout processing, receipt generation, and order history.
 
-These improvements made my program more organized, functional, and easier to understand. Through the use of AI for debugging and guidance, I was able to develop a more efficient console application that manages inventory, processes cart transactions, and handles errors properly.
+Some of the issues I faced included:
+- Cart loop not behaving correctly when reaching limits
+- Stock not updating properly after adding items to cart
+- Incorrect subtotal and total calculations during checkout
+- Program flow stopping or repeating unexpectedly
+- Order history not saving correctly after checkout
+- Difficulty in organizing menu navigation between different features
+
+AI helped me understand these problems and guided me in fixing them step-by-step.
+
+AI Assistance in Debugging and Logic Fixes
+
+AI was used to analyze and correct errors in my program logic, especially in the following areas:
+
+1. Cart and Loop Management
+I had issues where the cart system would not stop properly or would allow incorrect behavior when adding items.
+
+Example prompts:
+- "how do I properly control a while loop for menu system"
+- "why is my cart array allowing errors when full"
+
+2. Stock Management System
+I struggled with updating stock correctly after each purchase and preventing over-purchasing.
+
+Example prompts:
+- "how to reduce product stock after adding to cart"
+- "how to check stock before allowing purchase"
+- "why is my stock not updating correctly after checkout"
+
+3. Cart Structure and Item Updates
+I had difficulty preventing duplicate items and updating quantity properly.
+
+Example prompts:
+- "how to prevent duplicate items in cart array"
+- "how to update quantity instead of adding duplicate product"
+- "how to recalculate subtotal after quantity change"
+
+4. Checkout and Receipt Generation
+I needed guidance in properly structuring checkout flow and generating receipts.
+
+Example prompts:
+- "where should I place receipt generation in console program flow"
+- "how to compute total, discount, and change"
+- "how to make sure checkout runs before clearing cart"
+
+5. Program Flow and Menu Navigation
+I also struggled with menu transitions and program repetition issues.
+
+Example prompts:
+- "why does my console program keep repeating menu after action"
+- "how to properly structure nested menus in c#"
+- "how to return to main menu without breaking program flow"
+
+6. Input Validation and Error Handling
+AI helped me improve user input handling to avoid crashes and invalid entries.
+
+Example prompts:
+- "how to use tryparse in c# to avoid input errors"
+- "how to validate user input in console application"
+- "how to prevent program crash from invalid input"
+
+Improvements After Using AI
+
+After using AI assistance, I was able to significantly improve my program in the following areas:
+
+- Fixed logical errors in cart and checkout flow
+- Improved stock validation and ensured accurate updates after purchase
+- Corrected subtotal and total computation logic
+- Fixed order history saving issue by storing data before clearing the cart
+- Improved menu navigation and program flow structure
+- Added proper input validation to prevent runtime errors
+- Organized the system into clearer functional sections (product, cart, checkout, history)
+
+Overall, the system became more stable, functional, and easier to use after applying AI-assisted debugging and improvements.
