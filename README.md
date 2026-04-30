@@ -49,11 +49,11 @@ Stores completed transactions during runtime and allows users to view past order
 Input Validation
 All inputs such as menu choices, quantities, and payment are validated to prevent program crashes.
 
+
+
 ##**AI Usage In This Project**
 
 I used different AI tools such as ChatGPT, Gemini AI, and Claude AI as a collaborative coding assistant throughout the development of my shopping cart system. These AI tools were used to help me design, debug, and improve different parts of my program including product management, cart system, checkout process, stock handling, and order history tracking.
-
-AI was not used to fully generate the program, but rather as a guide to help me understand logic errors, fix bugs, and improve the overall structure and flow of my console application.
 
 Why AI Was Used
 
@@ -73,30 +73,7 @@ AI Assistance in Debugging and Logic Fixes
 
 AI was used to analyze and correct errors in my program logic, especially in the following areas:
 
-1. Cart and Loop Management
-I had issues where the cart system would not stop properly or would allow incorrect behavior when adding items.
-
-Example prompts:
-- "how do I properly control a while loop for menu system"
-- "why is my cart array allowing errors when full"
-
-2. Stock Management System
-I struggled with updating stock correctly after each purchase and preventing over-purchasing.
-
-Example prompts:
-- "how to reduce product stock after adding to cart"
-- "how to check stock before allowing purchase"
-- "why is my stock not updating correctly after checkout"
-
-3. Cart Structure and Item Updates
-I had difficulty preventing duplicate items and updating quantity properly.
-
-Example prompts:
-- "how to prevent duplicate items in cart array"
-- "how to update quantity instead of adding duplicate product"
-- "how to recalculate subtotal after quantity change"
-
-4. Checkout and Receipt Generation
+1. Checkout and Receipt Generation
 I needed guidance in properly structuring checkout flow and generating receipts.
 
 Example prompts:
@@ -120,19 +97,8 @@ Example prompts:
 - "how to validate user input in console application"
 - "how to prevent program crash from invalid input"
 
-##**Improvements After Using AI**
-
-After using AI assistance, I was able to significantly improve my program in the following areas:
-
-- Fixed logical errors in cart and checkout flow
-- Improved stock validation and ensured accurate updates after purchase
-- Corrected subtotal and total computation logic
-- Fixed order history saving issue by storing data before clearing the cart
-- Improved menu navigation and program flow structure
-- Added proper input validation to prevent runtime errors
-- Organized the system into clearer functional sections (product, cart, checkout, history)
-
 Overall, the system became more stable, functional, and easier to use after applying AI-assisted debugging and improvements.
+
 
 ##**Summary of changes**
 
