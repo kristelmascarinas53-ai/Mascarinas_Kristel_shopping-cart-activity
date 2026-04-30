@@ -149,31 +149,17 @@ After successful checkout, the system generates an official receipt containing:
 
 This simulates a real-world point-of-sale receipt system.
 
- 6. Order History System
-An order history feature was added to store completed transactions during runtime.
-
-- Stores receipt summaries after checkout
-- Allows users to view past orders while the program is running
-- Helps track previous purchases before program restart
-
- 7. Low Stock Alert Feature
+ 6. Low Stock Alert Feature
 After checkout, the system checks product inventory and:
 - Displays products with low stock (≤ 5 items remaining)
 - Notifies the user to help simulate inventory awareness
 
-8. Input Validation and Error Handling
+7. Input Validation and Error Handling
 To improve system stability, multiple input validations were added:
 - Prevents invalid numeric inputs using TryParse
 - Validates menu selections
 - Ensures correct Y/N responses
 - Prevents crashes caused by invalid user input
-
- 9. Program Structure and Flow Improvements
-The overall program flow was improved using:
-- Proper loop control for menus
-- Separation of concerns between product, cart, and checkout logic
-- Better navigation between main menu, cart menu, and checkout process
-- Prevention of premature program termination
 
 Overall Result
 
