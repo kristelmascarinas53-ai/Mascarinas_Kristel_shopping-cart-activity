@@ -29,7 +29,7 @@ Checkout & Payment Validation
 - Prevents insufficient payment
 - Calculates change automatically
 
-Receipt Generation
+Receipt 
 Each transaction includes:
 - Receipt number
 - Date and time
@@ -53,10 +53,6 @@ All inputs such as menu choices, quantities, and payment are validated to preven
 
 # AI Usage
 
-I used different AI tools such as ChatGPT, Gemini AI, and Claude AI as a collaborative coding assistant throughout the development of my shopping cart system. These AI tools were used to help me design, debug, and improve different parts of my program including product management, cart system, checkout process, stock handling, and order history tracking.
-
-Why AI Was Used
-
 I used AI mainly to help solve logical and runtime issues that I encountered while developing the system. My program involves multiple interconnected parts such as product listing, cart management, category filtering, search functionality, checkout processing, receipt generation, and order history.
 
 Some of the issues I faced included:
@@ -71,28 +67,15 @@ AI helped me understand these problems and guided me in fixing them step-by-step
 
 AI Assistance in Debugging and Logic Fixes
 
-AI was used to analyze and correct errors in my program logic, especially in the following areas:
+AI was used to analyze and correct errors in my program logic
 
-1. Checkout and Receipt Generation
-I needed guidance in properly structuring checkout flow and generating receipts.
-
-Example prompts:
+prompts:
 - "where should I place receipt generation in console program flow"
 - "how to compute total, discount, and change"
 - "how to make sure checkout runs before clearing cart"
-
-5. Program Flow and Menu Navigation
-I also struggled with menu transitions and program repetition issues.
-
-Example prompts:
 - "why does my console program keep repeating menu after action"
 - "how to properly structure nested menus in c#"
 - "how to return to main menu without breaking program flow"
-
-6. Input Validation and Error Handling
-AI helped me improve user input handling to avoid crashes and invalid entries.
-
-Example prompts:
 - "how to use tryparse in c# to avoid input errors"
 - "how to validate user input in console application"
 - "how to prevent program crash from invalid input"
