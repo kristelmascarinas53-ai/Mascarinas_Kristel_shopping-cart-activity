@@ -199,29 +199,9 @@ class Program
 
             Console.WriteLine("S. Search Product");
             Console.WriteLine("C. Filter by Category");
-            Console.WriteLine("H. View Order History");
 
             Console.Write("\nEnter product number / option: ");
             string input = Console.ReadLine();
-
-            if (input.ToUpper() == "H")
-            {
-                PrintCentered("======= ORDER HISTORY =======");
-
-                if (historyCount == 0)
-                {
-                    PrintCentered("No orders yet.");
-                }
-                else
-                {
-                    for (int i = 0; i < historyCount; i++)
-                    {
-                        PrintCentered(orderHistory[i]);
-                    }
-                }
-
-                continue;
-            }
 
             if (input.ToUpper() == "S")
             {
@@ -500,6 +480,12 @@ class Program
                     }
                     else if (cartChoice == "5")
                     {
+                        if (cartCount == 0)
+                        {
+                            PrintCentered("Cart is empty. Cannot checkout.");
+                            continue;
+                        }
+
                         inCartMenu = false; 
                     }
                     else if (cartChoice == "6")
@@ -514,7 +500,6 @@ class Program
                     }
                 }
 
-                continueShopping = false;
                 double finalTotalSemi = ShowSemiReceipt(cart, cartCount);
 
                 double paymentSemi;
@@ -598,6 +583,59 @@ class Program
                 }
 
                 PrintCentered("THANK YOU FOR SHOPPING!");
+        
+                string viewHistoryChoice;
+
+                do
+                {
+                    Console.Write("Do you want to view order history? (Y/N): ");
+                    viewHistoryChoice = Console.ReadLine().Trim().ToUpper();
+
+                    if (viewHistoryChoice != "Y" && viewHistoryChoice != "N")
+                    {
+                        PrintCentered("Invalid input. Please enter Y or N only.");
+                    }
+
+                } while (viewHistoryChoice != "Y" && viewHistoryChoice != "N");
+
+                if (viewHistoryChoice == "Y")
+                {
+                    PrintCentered("======= ORDER HISTORY =======");
+
+                    if (historyCount == 0)
+                    {
+                        PrintCentered("No orders yet.");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < historyCount; i++)
+                        {
+                            PrintCentered(orderHistory[i]);
+                        }
+                    }
+                    string orderAgainChoice;
+
+                    do
+                    {
+                        Console.Write("\nDo you want to order again? (Y/N): ");
+                        orderAgainChoice = Console.ReadLine().Trim().ToUpper();
+
+                        if (orderAgainChoice != "Y" && orderAgainChoice != "N")
+                        {
+                            PrintCentered("Invalid input. Please enter Y or N only.");
+                        }
+
+                    } while (orderAgainChoice != "Y" && orderAgainChoice != "N");
+
+                    if (orderAgainChoice == "Y")
+                    {
+                        continueShopping = true;
+                    }
+                    else
+                    {
+                        continueShopping = false;
+                    }
+                }
             }
         }
 
