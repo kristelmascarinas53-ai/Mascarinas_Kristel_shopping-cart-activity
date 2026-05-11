@@ -1,21 +1,49 @@
 using System;
+
 class Product
 {
-    public int Id;
-    public string Name;
-    public string Category;
-    public double Price;
-    public int RemainingStock;
+    private int id;
+    private string name;
+    private string category;
+    private double price;
+    private int remainingStock;
+
+    public int Id
+    {
+        get { return id; }
+        set { id = value; }
+    }
+
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+
+    public string Category
+    {
+        get { return category; }
+        set { category = value; }
+    }
+
+    public double Price
+    {
+        get { return price; }
+        set { price = value; }
+    }
+
+    public int RemainingStock
+    {
+        get { return remainingStock; }
+        set { remainingStock = value; }
+    }
 
     public void DisplayProduct()
     {
-
         string text = $"{Id}. {Name} - ₱{Price} (Stock: {RemainingStock})";
-
         int screenWidth = Console.WindowWidth;
         int spaces = (screenWidth - text.Length) / 2;
         if (spaces < 0) spaces = 0;
-
         Console.WriteLine(new string(' ', spaces) + text);
     }
 
@@ -37,17 +65,35 @@ class Product
 
 class CartItem
 {
-    public Product Product;
-    public int Quantity;
-    public double Subtotal;
+    private Product product;
+    private int quantity;
+    private double subtotal;
+
+    public Product Product
+    {
+        get { return product; }
+        set { product = value; }
+    }
+
+    public int Quantity
+    {
+        get { return quantity; }
+        set { quantity = value; }
+    }
+
+    public double Subtotal
+    {
+        get { return subtotal; }
+        set { subtotal = value; }
+    }
 }
+
 class Program
 {
     static void PrintCentered(string text)
     {
         int screenWidth = Console.WindowWidth;
         int textLength = text.Length;
-
         int spaces = (screenWidth - textLength) / 2;
         if (spaces < 0) spaces = 0;
 
@@ -67,6 +113,7 @@ class Program
         }
         return true;
     }
+
     static void ViewCart(CartItem[] cart, int cartCount)
     {
         Console.WriteLine("\n=== YOUR CART ===");
@@ -82,6 +129,7 @@ class Program
             Console.WriteLine($"{cart[i].Product.Id}. {cart[i].Product.Name} x{cart[i].Quantity}");
         }
     }
+
     static void RemoveItem(CartItem[] cart, ref int cartCount)
     {
         Console.Write("Enter Product ID to remove: ");
@@ -142,6 +190,7 @@ class Program
 
         PrintCentered("Item not found.");
     }
+
     static double ShowSemiReceipt(CartItem[] cart, int cartCount)
     {
         double total = 0;
@@ -163,21 +212,21 @@ class Program
 
         return finalTotal;
     }
+
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-
         Console.ForegroundColor = ConsoleColor.Yellow;
-        
+
         Product[] products = new Product[]
         {
-           new Product { Id = 1, Name = "Laptop", Category="Electronics", Price = 3500, RemainingStock = 20 },
-           new Product { Id = 2, Name = "Mouse", Category="Electronics", Price = 500, RemainingStock = 25 },
-           new Product { Id = 3, Name = "Keyboard", Category="Electronics", Price = 1500, RemainingStock = 30 },
-           new Product { Id = 4, Name = "Pencil", Category="School", Price = 100, RemainingStock = 35 },
-           new Product { Id = 5, Name = "Ballpen", Category="School", Price = 150, RemainingStock = 40 },
-           new Product { Id = 6, Name = "Plate", Category="Household", Price = 250, RemainingStock = 45 },
-           new Product { Id = 7, Name = "Tissue", Category="Household", Price = 250, RemainingStock = 50 }
+            new Product { Id = 1, Name = "Laptop",   Category = "Electronics", Price = 3500, RemainingStock = 20 },
+            new Product { Id = 2, Name = "Mouse",    Category = "Electronics", Price = 500,  RemainingStock = 25 },
+            new Product { Id = 3, Name = "Keyboard", Category = "Electronics", Price = 1500, RemainingStock = 30 },
+            new Product { Id = 4, Name = "Pencil",   Category = "School",      Price = 100,  RemainingStock = 35 },
+            new Product { Id = 5, Name = "Ballpen",  Category = "School",      Price = 150,  RemainingStock = 40 },
+            new Product { Id = 6, Name = "Plate",    Category = "Household",   Price = 250,  RemainingStock = 45 },
+            new Product { Id = 7, Name = "Tissue",   Category = "Household",   Price = 250,  RemainingStock = 50 }
         };
 
         CartItem[] cart = new CartItem[10];
@@ -203,6 +252,7 @@ class Program
             Console.Write("\nEnter product number / option: ");
             string input = Console.ReadLine();
 
+            // ─── Search ───────────────────────────────────────────────────────────────
             if (input.ToUpper() == "S")
             {
                 Console.Write("\nEnter product name to search: ");
@@ -226,10 +276,11 @@ class Program
                     PrintCentered("No product found.");
                 }
 
-                Console.WriteLine(); 
+                Console.WriteLine();
                 continue;
             }
 
+            // ─── Filter by Category ───────────────────────────────────────────────────
             if (input.ToUpper() == "C")
             {
                 bool inCategory = true;
@@ -324,7 +375,7 @@ class Program
                         {
                             cart[cartCount] = new CartItem
                             {
-                                Product = selected,
+                                Product  = selected,
                                 Quantity = qty,
                                 Subtotal = selected.GetItemTotal(qty)
                             };
@@ -350,6 +401,8 @@ class Program
 
                 continue;
             }
+
+            // ─── Add by product number ────────────────────────────────────────────────
             if (!int.TryParse(input, out int productChoice))
             {
                 PrintCentered("Invalid input. Please enter a number.");
@@ -390,7 +443,7 @@ class Program
                 if (cart[i].Product.Id == selectedProduct.Id)
                 {
                     cart[i].Quantity += quantity;
-                    cart[i].Subtotal = cart[i].Product.GetItemTotal(cart[i].Quantity);
+                    cart[i].Subtotal  = cart[i].Product.GetItemTotal(cart[i].Quantity);
                     itemExists = true;
                     break;
                 }
@@ -406,14 +459,14 @@ class Program
 
                 cart[cartCount] = new CartItem
                 {
-                    Product = selectedProduct,
+                    Product  = selectedProduct,
                     Quantity = quantity,
                     Subtotal = selectedProduct.GetItemTotal(quantity)
                 };
                 cartCount++;
             }
-            selectedProduct.DeductStock(quantity);
 
+            selectedProduct.DeductStock(quantity);
             PrintCentered("Item added to cart!");
 
             if (AreAllProductsOutOfStock(products))
@@ -422,6 +475,7 @@ class Program
                 break;
             }
 
+            // ─── Continue-shopping prompt ─────────────────────────────────────────────
             string choice;
 
             do
@@ -438,6 +492,7 @@ class Program
 
             if (choice != "Y")
             {
+                // ─── Cart management menu ─────────────────────────────────────────────
                 bool inCartMenu = true;
 
                 while (inCartMenu)
@@ -486,7 +541,7 @@ class Program
                             continue;
                         }
 
-                        inCartMenu = false; 
+                        inCartMenu = false;
                     }
                     else if (cartChoice == "6")
                     {
@@ -500,8 +555,8 @@ class Program
                     }
                 }
 
+                // ─── Payment ──────────────────────────────────────────────────────────
                 double finalTotalSemi = ShowSemiReceipt(cart, cartCount);
-
                 double paymentSemi;
 
                 while (true)
@@ -525,10 +580,11 @@ class Program
 
                 double changeSemi = paymentSemi - finalTotalSemi;
 
+                // ─── Official receipt ─────────────────────────────────────────────────
                 PrintCentered("========== OFFICIAL RECEIPT ==========");
 
                 string receiptNo = receiptCounter.ToString("D4");
-                string dateNow = DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt");
+                string dateNow   = DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt");
 
                 PrintCentered($"Receipt No: {receiptNo}");
                 PrintCentered($"Date: {dateNow}");
@@ -541,13 +597,12 @@ class Program
                     receiptTotal += cart[i].Subtotal;
                 }
 
-                double discount = receiptTotal >= 5000 ? receiptTotal * 0.10 : 0;
+                double discount  = receiptTotal >= 5000 ? receiptTotal * 0.10 : 0;
                 double finalTotal = finalTotalSemi;
 
                 PrintCentered($"Grand Total: ₱{receiptTotal}");
                 PrintCentered($"Discount: ₱{discount}");
                 PrintCentered($"Final Total: ₱{finalTotal}");
-
                 PrintCentered($"Payment: ₱{paymentSemi}");
                 PrintCentered($"Change: ₱{changeSemi}");
 
@@ -564,6 +619,7 @@ class Program
                 receiptCounter++;
                 cartCount = 0;
 
+                // ─── Low-stock alert ──────────────────────────────────────────────────
                 PrintCentered("===== LOW STOCK ALERT =====");
 
                 bool hasLowStock = false;
@@ -583,7 +639,8 @@ class Program
                 }
 
                 PrintCentered("THANK YOU FOR SHOPPING!");
-        
+
+                // ─── View order history ───────────────────────────────────────────────
                 string viewHistoryChoice;
 
                 do
@@ -613,6 +670,8 @@ class Program
                             PrintCentered(orderHistory[i]);
                         }
                     }
+
+                    // ─── Order-again prompt ───────────────────────────────────────────
                     string orderAgainChoice;
 
                     do
@@ -627,21 +686,11 @@ class Program
 
                     } while (orderAgainChoice != "Y" && orderAgainChoice != "N");
 
-                    if (orderAgainChoice == "Y")
-                    {
-                        continueShopping = true;
-                    }
-                    else
-                    {
-                        continueShopping = false;
-                    }
+                    continueShopping = orderAgainChoice == "Y";
                 }
             }
         }
 
-        double grandTotal = 0;
-
         Console.WriteLine();
     }
-
 }
